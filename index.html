@@ -1,0 +1,201 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<title>Visores Económicos Hidalgo</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<style>
+
+body{
+margin:0;
+font-family:Arial, Helvetica, sans-serif;
+background:#f2f2f2;
+}
+
+/* pantalla inicial */
+
+#inicio{
+display:flex;
+flex-direction:column;
+align-items:center;
+justify-content:center;
+height:100vh;
+text-align:center;
+}
+
+.logo{
+width:320px;
+max-width:90%;
+margin-bottom:30px;
+}
+
+.titulo{
+font-size:24px;
+font-weight:bold;
+margin-bottom:10px;
+}
+
+.subtitulo{
+color:#555;
+margin-bottom:40px;
+}
+
+/* tarjetas */
+
+.contenedor-botones{
+display:flex;
+gap:30px;
+flex-wrap:wrap;
+justify-content:center;
+}
+
+.tarjeta{
+background:white;
+padding:40px;
+width:260px;
+border-radius:10px;
+box-shadow:0 4px 15px rgba(0,0,0,0.15);
+cursor:pointer;
+transition:0.3s;
+}
+
+.tarjeta:hover{
+transform:translateY(-5px);
+box-shadow:0 8px 20px rgba(0,0,0,0.2);
+}
+
+.tarjeta h3{
+margin-top:0;
+}
+
+.estatal{
+border-top:6px solid #8b0000;
+}
+
+.regional{
+border-top:6px solid #333;
+}
+
+/* visor */
+
+#visor{
+display:none;
+width:100%;
+height:100vh;
+}
+
+iframe{
+width:100%;
+height:100%;
+border:none;
+}
+
+/* botón regresar */
+
+#btnRegresar{
+position:fixed;
+top:20px;
+left:20px;
+background:#8b0000;
+color:white;
+border:none;
+padding:10px 16px;
+border-radius:6px;
+cursor:pointer;
+z-index:1000;
+display:none;
+font-size:14px;
+}
+
+#btnRegresar:hover{
+background:#a30000;
+}
+
+.footer{
+position:absolute;
+bottom:20px;
+font-size:13px;
+color:#777;
+}
+
+</style>
+</head>
+
+<body>
+
+<button id="btnRegresar" onclick="volverInicio()">← Volver al menú</button>
+
+<!-- pantalla inicial -->
+
+<div id="inicio">
+
+<img class="logo"
+src="https://raw.githubusercontent.com/jorgeluisv756-svg/imagenes_kmz/7c7924c0d0c89c5adaf112d1b8e3fb9db3258400/Logotipo%20armas30%20(1).png">
+
+<div class="titulo">
+Visores de Desarrollo Económico
+</div>
+
+<div class="subtitulo">
+Seleccione el visor que desea consultar
+</div>
+
+<div class="contenedor-botones">
+
+<div class="tarjeta estatal" onclick="abrirVisor('visor_estatal.html')">
+<h3>Visor Estatal</h3>
+<p>
+Visualización general de programas e inversión a nivel estatal.
+</p>
+</div>
+
+<div class="tarjeta regional" onclick="abrirVisor('visor_regional.html')">
+<h3>Visor Regional</h3>
+<p>
+Consulta territorial por regiones y municipios.
+</p>
+</div>
+
+</div>
+
+<div class="footer">
+Secretaría de Desarrollo Económico · Hidalgo
+</div>
+
+</div>
+
+<!-- visor -->
+
+<div id="visor">
+<iframe id="frameVisor"></iframe>
+</div>
+
+<script>
+
+function abrirVisor(url){
+
+document.getElementById("inicio").style.display="none";
+document.getElementById("visor").style.display="block";
+
+document.getElementById("frameVisor").src=url;
+
+document.getElementById("btnRegresar").style.display="block";
+
+}
+
+function volverInicio(){
+
+document.getElementById("visor").style.display="none";
+document.getElementById("inicio").style.display="flex";
+
+document.getElementById("frameVisor").src="";
+
+document.getElementById("btnRegresar").style.display="none";
+
+}
+
+</script>
+
+</body>
+</html>
