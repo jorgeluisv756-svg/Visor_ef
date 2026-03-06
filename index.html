@@ -13,13 +13,12 @@
             background: #f2f2f2;
         }
 
-        /* pantalla inicial */
-
         #inicio {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-start;
+            padding-top: 20px;
             height: 100vh;
             text-align: center;
         }
@@ -27,8 +26,8 @@
         .logo {
             width: 320px;
             max-width: 90%;
-            margin-top: 40px;
-            margin-bottom: 60px;
+            margin-top: 5px;
+            margin-bottom: 125px;
         }
 
         .titulo {
@@ -41,8 +40,6 @@
             color: #555;
             margin-bottom: 40px;
         }
-
-        /* tarjetas */
 
         .contenedor-botones {
             display: flex;
@@ -75,10 +72,8 @@
         }
 
         .regional {
-            border-top: 6px solid #333;
+            border-top: 6px solid #BC955B;
         }
-
-        /* visor */
 
         #visor {
             display: none;
@@ -91,8 +86,6 @@
             height: 100%;
             border: none;
         }
-
-        /* botón regresar */
 
         #btnRegresar {
             position: fixed;
@@ -126,19 +119,17 @@
 
     <button id="btnRegresar" onclick="volverInicio()">← Volver al menú</button>
 
-    <!-- pantalla inicial -->
-
     <div id="inicio">
 
         <img class="logo"
             src="https://raw.githubusercontent.com/jorgeluisv756-svg/imagenes_kmz/7c7924c0d0c89c5adaf112d1b8e3fb9db3258400/Logotipo%20armas30%20(1).png">
 
         <div class="titulo">
-            Base de Datos Georeferenciada de Desarrollo Económico
+            Sistema de Información Económica
         </div>
 
         <div class="subtitulo">
-            Seleccione el visor que desea consultar
+            Seleccione la base de datos georreferenciada que desea consultar
         </div>
 
         <div class="contenedor-botones">

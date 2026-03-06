@@ -276,37 +276,9 @@
     <h3>Selecciona un programa</h3>
     <button id="menuBtn">Abrir menú</button>
     <div id="menuOptions">
-      <label><input type="radio" name="mapOption" value="exp1"> Tu Experiencia Transforma 1er Informe
-        Inversión</label><br>
-      <label><input type="radio" name="mapOption" value="exp2"> Tu Experiencia Transforma 2do Informe
-        Inversión</label><br>
-      <label><input type="radio" name="mapOption" value="exp1b"> Tu Experiencia Transforma 1er Informe
-        Beneficiarios</label><br>
-      <label><input type="radio" name="mapOption" value="exp2b"> Tu Experiencia Transforma 2do Informe
-        Beneficiarios</label><br>
-      <label><input type="radio" name="mapOption" value="juv1"> Transformando con la Juventud 1er Informe
-        Inversión</label><br>
-      <label><input type="radio" name="mapOption" value="juv2"> Transformando con la Juventud 2do Informe
-        Inversión</label><br>
-      <label><input type="radio" name="mapOption" value="juv1B"> Transformando con la Juventud 1er Informe
-        Beneficarios</label><br>
-      <label><input type="radio" name="mapOption" value="juv2B"> Transformando con la Juventud 2do Informe
-        Beneficarios</label><br>
-      <label><input type="radio" name="mapOption" value="NAFIN1"> Impulso NAFIN 1er Informe</label><br>
-      <label><input type="radio" name="mapOption" value="NAFIN2"> Impulso NAFIN 2do Informe</label><br>
-      <label><input type="radio" name="mapOption" value="NAFIN3"> Impulso NAFIN 3er Informe (Junio)</label><br>
-      <label><input type="radio" name="mapOption" value="HgoC1"> Hidalgo Confia en Ti 1er Informe</label><br>
-      <label><input type="radio" name="mapOption" value="HgoC2"> Hidalgo Confia en Ti 2do Informe</label><br>
-      <label><input type="radio" name="mapOption" value="Energia2"> Energía para el Bienestar 2do Informe
-        Inversión</label><br>
-      <label><input type="radio" name="mapOption" value="Energia2B"> Energía para el Bienestar 2do Informe
-        Beneficiarios</label><br>
-      <label><input type="radio" name="mapOption" value="Inversion1"> Consolidación de Inversiones 1er
-        Informe</label><br>
-      <label><input type="radio" name="mapOption" value="Inversion2"> Consolidación de Inversiones 2do
-        Informe</label><br>
-      <label><input type="radio" name="mapOption" value="Inversion3"> Consolidación de Inversiones 3er Informe
-        (Junio)</label>
+      <label><input type="radio" name="mapOption" value="NAFIN1"> Impulso NAFIN 2023</label><br>
+      <label><input type="radio" name="mapOption" value="NAFIN2"> Impulso NAFIN 2024</label><br>
+      <label><input type="radio" name="mapOption" value="NAFIN3"> Impulso NAFIN 2025</label>
     </div>
 
     <div id="legend"><strong>INVERSIÓN</strong></div>
@@ -675,28 +647,28 @@
     function estiloNAFIN1(valorNum) {
       var valor = toNumberSafe(valorNum);
       if (isNaN(valor) || valor === 0) return { fillColor: "rgb(204,204,204)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 1 && valor <= 800000) return { fillColor: "rgb(255,182,171)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 800001 && valor <= 1400000) return { fillColor: "rgb(250,131,110)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 1400001 && valor <= 2400000) return { fillColor: "rgb(237,57,33)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 2400001 && valor <= 5000000) return { fillColor: "rgb(230,0,0)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1 && valor <= 2200000) return { fillColor: "rgb(255,182,171)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 2200001 && valor <= 9704000) return { fillColor: "rgb(250,131,110)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 9704001 && valor <= 38892400) return { fillColor: "rgb(237,57,33)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 38892401 && valor <= 105663500) return { fillColor: "rgb(230,0,0)", color: "#333", weight: 1, fillOpacity: 1 };
       else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
     }
     function estiloNAFIN2(valorNum) {
       var valor = toNumberSafe(valorNum);
       if (isNaN(valor) || valor === 0) return { fillColor: "rgb(204,204,204)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 1 && valor <= 10000000) return { fillColor: "rgb(255,182,171)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 10000001 && valor <= 25842600) return { fillColor: "rgb(250,131,110)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 25842601 && valor <= 44376400) return { fillColor: "rgb(237,57,33)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 44376401 && valor <= 105663500) return { fillColor: "rgb(230,0,0)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1 && valor <= 5000000) return { fillColor: "rgb(255,182,171)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 5000001 && valor <= 18500000) return { fillColor: "rgb(250,131,110)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 18500001 && valor <= 42068720) return { fillColor: "rgb(237,57,33)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 42068721 && valor <= 145163037) return { fillColor: "rgb(230,0,0)", color: "#333", weight: 1, fillOpacity: 1 };
       else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
     }
     function estiloNAFIN3(valorNum) {
       var valor = toNumberSafe(valorNum);
       if (isNaN(valor) || valor === 0) return { fillColor: "rgb(204,204,204)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 1 && valor <= 5928200) return { fillColor: "rgb(255,182,171)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 5928201 && valor <= 24417000) return { fillColor: "rgb(250,131,110)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 24417001 && valor <= 42723000) return { fillColor: "rgb(237,57,33)", color: "#333", weight: 1, fillOpacity: 1 };
-      else if (valor >= 42723001 && valor <= 144833037) return { fillColor: "rgb(230,0,0)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1 && valor <= 2000000) return { fillColor: "rgb(255,182,171)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 2000001 && valor <= 5180000) return { fillColor: "rgb(250,131,110)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 5180001 && valor <= 19069600) return { fillColor: "rgb(237,57,33)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 19069601 && valor <= 90691097) return { fillColor: "rgb(230,0,0)", color: "#333", weight: 1, fillOpacity: 1 };
       else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
     }
     function estiloHgoC1(valorNum) {
@@ -789,9 +761,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R1-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R1-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R1-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R1-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R1-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R1-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R1.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R1.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R1.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R1-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R1-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R1-2.jpg",
@@ -810,9 +782,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R2-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R2-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R2-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R2-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R2-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R2-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R2.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R2.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R2.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R2-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R2-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R2-2.jpg",
@@ -831,9 +803,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R3-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R3-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R3-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R3-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R3-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R3-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R3.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R3.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R3.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R3-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R3-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R3-2.jpg",
@@ -852,9 +824,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R4-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R4-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R4-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R4-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R4-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R4-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R4.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R4.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R4.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R4-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R4-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R4-2.jpg",
@@ -873,9 +845,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R5-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R5-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R5-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R5-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R5-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R5-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R5.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R5.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R5.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R5-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R5-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R5-2.jpg",
@@ -894,9 +866,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R6-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R6-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R6-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R6-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R6-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R6-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R6.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R6.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R6.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R6-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R6-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R6-2.jpg",
@@ -915,9 +887,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R7-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R7-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R7-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R7-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R7-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R7-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R7.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R7.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R7.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R7-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R7-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R7-2.jpg",
@@ -936,9 +908,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R8-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R8-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R8-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R8-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R8-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R8-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R8.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R8.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R8.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R8-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R8-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R8-2.jpg",
@@ -957,9 +929,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R9-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R9-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R9-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R9-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R9-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R9-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R9.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R9.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R9.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R9-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R9-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R9-2.jpg",
@@ -978,9 +950,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R10-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R10-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R10-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R10-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R10-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R10-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R10.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R10.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R10.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R10-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R10-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R10-2.jpg",
@@ -999,9 +971,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R11-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R11-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R11-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R11-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R11-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R11-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R11.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R11.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R11.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R11-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R11-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R11-2.jpg",
@@ -1020,9 +992,9 @@
         "juv2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/16dee727a9bd3d0766d5a5d6c5fc25d018684edc/TJuv-R12-2.jpg",
         "juv1B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R12-1.jpg",
         "juv2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/9dbf1077a3c996694fdc9d02f731e7b901298499/TJuvB-R12-2.jpg",
-        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R12-1.jpg",
-        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R12-2.jpg",
-        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/1b0607c0a997ef5e61ffce1e980a342fa45d08b8/Nafin-R12-3.jpg",
+        "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN23_R12.jpg",
+        "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN24_R12.jpg",
+        "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c76ccfd216d429f3a42b01cb46052fc354e781e5/NAFIN25_R12.jpg",
         "HgoC1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R12-1.jpg",
         "HgoC2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/6a817b4f15a79cca22a004f728bc79a43cd9d677/HgoC-R12-2.jpg",
         "Energia2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/Energia-R12-2.jpg",
@@ -1294,7 +1266,7 @@
         } else if (e.target.value === 'NAFIN1' && informesNAFINData) {
           NAFIN1Layer = L.geoJSON(informesNAFINData, {
             filter: f => listaMunicipiosDeRegion.includes(getField(f, "NOMGEO")),
-            style: f => estiloNAFIN1(getField(f, "imp_1inv"))
+            style: f => estiloNAFIN1(getField(f, "EF23_Inv"))
           }).addTo(map);
 
           municipiosLayer && municipiosLayer.bringToBack();
@@ -1304,19 +1276,19 @@
 
           buildLegend([
             { color: "rgb(204,204,204)", label: "Sin inversión" },
-            { color: "rgb(255,182,171)", label: "$1 - $800,000" },
-            { color: "rgb(250,131,110)", label: "$800,001 - $1,400,000" },
-            { color: "rgb(237,57,33)", label: "$1,400,001 - $2,400,000" },
-            { color: "rgb(230,0,0)", label: "$2,400,001 - $5,000,000" }
+            { color: "rgb(255,182,171)", label: "$1 - $2,200,000 (4)" },
+            { color: "rgb(250,131,110)", label: "$2,200,001 - $9,704,000 (3)" },
+            { color: "rgb(237,57,33)", label: "$9,704,001 - $38,892,400 (1)" },
+            { color: "rgb(230,0,0)", label: "$38,892,401 - $105,663,500 (1)" }
           ], "INVERSIÓN");
-          document.getElementById("programTitle").textContent = "Impluso NAFIN +HIDALGO 1er Informe Inversión";
+          document.getElementById("programTitle").textContent = "Impluso NAFIN +HIDALGO Ejercicio Fiscal 2023 Inversión";
 
           actualizarImagen(regionSeleccionada, "NAFIN1");
 
         } else if (e.target.value === 'NAFIN2' && informesNAFINData) {
           NAFIN2Layer = L.geoJSON(informesNAFINData, {
             filter: f => listaMunicipiosDeRegion.includes(getField(f, "NOMGEO")),
-            style: f => estiloNAFIN2(getField(f, "imp_2inv"))
+            style: f => estiloNAFIN2(getField(f, "EF24_Inv"))
           }).addTo(map);
 
           municipiosLayer && municipiosLayer.bringToBack();
@@ -1326,19 +1298,19 @@
 
           buildLegend([
             { color: "rgb(204,204,204)", label: "Sin inversión" },
-            { color: "rgb(255,182,171)", label: "$1 - $10,000,000" },
-            { color: "rgb(250,131,110)", label: "$10,000,001 - $25,842,600" },
-            { color: "rgb(237,57,33)", label: "$25,842,601 - $44,376,400" },
-            { color: "rgb(230,0,0)", label: "$44,376,401 - $105,663,500" }
+            { color: "rgb(255,182,171)", label: "$1 - $5,000,000 (5)" },
+            { color: "rgb(250,131,110)", label: "$5,000,001 - $18,500,000 (4)" },
+            { color: "rgb(237,57,33)", label: "$18,500,001 - $42,068,720 (1)" },
+            { color: "rgb(230,0,0)", label: "$42,068,720 - $145,163,037 (1)" }
           ], "INVERSIÓN");
-          document.getElementById("programTitle").textContent = "Impluso NAFIN +HIDALGO 2do Informe Inversión";
+          document.getElementById("programTitle").textContent = "Impluso NAFIN +HIDALGO Ejercicio Fiscal 2024 Inversión";
 
           actualizarImagen(regionSeleccionada, "NAFIN2");
 
         } else if (e.target.value === 'NAFIN3' && informesNAFINData) {
           NAFIN3Layer = L.geoJSON(informesNAFINData, {
             filter: f => listaMunicipiosDeRegion.includes(getField(f, "NOMGEO")),
-            style: f => estiloNAFIN3(getField(f, "Imp_3_Actj"))
+            style: f => estiloNAFIN3(getField(f, "EF25_Inv"))
           }).addTo(map);
 
           municipiosLayer && municipiosLayer.bringToBack();
@@ -1348,12 +1320,12 @@
 
           buildLegend([
             { color: "rgb(204,204,204)", label: "Sin inversión" },
-            { color: "rgb(255,182,171)", label: "$1 - $5,928,200" },
-            { color: "rgb(250,131,110)", label: "$5,928,201 - $24,417,000" },
-            { color: "rgb(237,57,33)", label: "$24,417,001 - $42,723,000" },
-            { color: "rgb(230,0,0)", label: "$42,723,001 - $144,833,037" }
+            { color: "rgb(255,182,171)", label: "$1 - $2,000,000 (1)" },
+            { color: "rgb(250,131,110)", label: "$2,000,001 - $5,180,000 (3)" },
+            { color: "rgb(237,57,33)", label: "$5,180,001 - $19,069,600 (2)" },
+            { color: "rgb(230,0,0)", label: "$19,069,601 - $90,691,097 (1)" }
           ], "INVERSIÓN");
-          document.getElementById("programTitle").textContent = "Impluso NAFIN +HIDALGO 3er Informe Inversión";
+          document.getElementById("programTitle").textContent = "Impluso NAFIN +HIDALGO Ejericio Fiscal 2025 Inversión";
 
           actualizarImagen(regionSeleccionada, "NAFIN3");
 
