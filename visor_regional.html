@@ -160,9 +160,10 @@
     }
 
     #imagen-panel img {
-      width: 100%;
-      height: auto;
-      max-width: 450px;
+      height: auto;       /* altura fija para todas */
+      width: auto;         /* el ancho se adapta */
+      max-width: 100%;     /* nunca se pasa del panel */
+      object-fit: contain;
       border-radius: 4px;
       box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
     }
