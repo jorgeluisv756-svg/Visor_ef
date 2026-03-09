@@ -282,7 +282,9 @@
     <div id="menuOptions">
       <label><input type="radio" name="mapOption" value="NAFIN1"> Impulso NAFIN 2023</label><br>
       <label><input type="radio" name="mapOption" value="NAFIN2"> Impulso NAFIN 2024</label><br>
-      <label><input type="radio" name="mapOption" value="NAFIN3"> Impulso NAFIN 2025</label>
+      <label><input type="radio" name="mapOption" value="NAFIN3"> Impulso NAFIN 2025</label><br>
+      <label><input type="radio" name="mapOption" value="Paso1"> Emprendiendo Paso a Paso 2024</label><br>
+      <label><input type="radio" name="mapOption" value="Paso2"> Emprendiendo Paso a Paso 2025</label>
     </div>
 
     <div id="legend"><strong>INVERSIÓN</strong></div>
@@ -313,7 +315,7 @@
     // Inicializar mapa y capa base
     var map = L.map('map', {
       zoomSnap: 0.1, 
-      zoomDelta: 0.5 
+      zoomDelta: 0.2 
     }).setView([20.50, -98.95], 8.9);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -325,8 +327,8 @@
 
     // Capas y datos
     var municipiosLayer, regionesLayer, edoLayer;
-    var exp1Layer, exp2Layer, exp1bLayer, exp2bLayer, Juv1Layer, Juv2Layer, Juv1BLayer, Juv2BLayer, NAFIN1Layer, NAFIN2Layer, NAFIN3Layer, HgoC1Layer, HgoC2Layer, Energia2Layer, Energia2BLayer, Inversion1Layer, Inversion2Layer, Inversion3Layer;
-    var informesExpTransData, informesJuvData, informesNAFINData, informesHgoCData, informesEnergiaData, informesInversionData;
+    var exp1Layer, exp2Layer, exp1bLayer, exp2bLayer, Juv1Layer, Juv2Layer, Juv1BLayer, Juv2BLayer, NAFIN1Layer, NAFIN2Layer, NAFIN3Layer, HgoC1Layer, HgoC2Layer, Energia2Layer, Energia2BLayer, Inversion1Layer, Inversion2Layer, Inversion3Layer, Paso1Layer, Paso2Layer;
+    var informesExpTransData, informesJuvData, informesNAFINData, informesHgoCData, informesEnergiaData, informesInversionData, informesPasoData;
     var regionesLabelLayer = L.layerGroup([], { pane: 'labels' }).addTo(map);
     var municipiosLabelLayer = L.layerGroup([], { pane: 'labels' }).addTo(map);
     var regionesData, municipiosData;
@@ -420,6 +422,7 @@
     fetch('Hgo_Conf.geojson').then(res => res.json()).then(data => { informesHgoCData = data; });
     fetch('Energia.geojson').then(res => res.json()).then(data => { informesEnergiaData = data; });
     fetch('Inversiones.geojson').then(res => res.json()).then(data => { informesInversionData = data; });
+    fetch('Paso.geojson').then(res => res.json()).then(data => { informesPasoData = data; });
     fetch('Regiones.geojson').then(res => res.json()).then(data => { regionesData = data; });
     fetch('Municipios.geojson').then(res => res.json()).then(data => { municipiosData = data; });
 
@@ -505,6 +508,8 @@
       if (Juv2Layer) { map.removeLayer(Juv2Layer); Juv2Layer = null; }
       if (Juv1BLayer) { map.removeLayer(Juv1BLayer); Juv1BLayer = null; }
       if (Juv2BLayer) { map.removeLayer(Juv2BLayer); Juv2BLayer = null; }
+      if (Paso1Layer) { map.removeLayer(Paso1Layer); Paso1Layer = null; }
+      if (Paso2Layer) { map.removeLayer(Paso2Layer); Paso2Layer = null; }      
       if (NAFIN1Layer) { map.removeLayer(NAFIN1Layer); NAFIN1Layer = null; }
       if (NAFIN2Layer) { map.removeLayer(NAFIN2Layer); NAFIN2Layer = null; }
       if (NAFIN3Layer) { map.removeLayer(NAFIN3Layer); NAFIN3Layer = null; }
@@ -738,6 +743,24 @@
       else if (valor >= 61200000001 && valor <= 10000000000) return { fillColor: "rgb(14,204,14)", color: "#333", weight: 1, fillOpacity: 1 };
       else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
     }
+    function estiloPaso1(valorNum) {
+      var valor = toNumberSafe(valorNum);
+      if (isNaN(valor) || valor === 0) return { fillColor: "rgb(204,204,204)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1 && valor <= 25000) return { fillColor: "rgb(222,184,135)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 25001 && valor <= 100000) return { fillColor: "rgb(193,130,67)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 100001 && valor <= 1075000) return { fillColor: "rgb(176,92,50)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1075001 && valor <= 2175000) return { fillColor: "rgb(129,62,17)", color: "#333", weight: 1, fillOpacity: 1 };
+      else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
+    }
+    function estiloPaso2(valorNum) {
+      var valor = toNumberSafe(valorNum);
+      if (isNaN(valor) || valor === 0) return { fillColor: "rgb(204,204,204)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1 && valor <= 50000) return { fillColor: "rgb(222,184,135)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 50001 && valor <= 100000) return { fillColor: "rgb(193,130,67)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 100001 && valor <= 200000) return { fillColor: "rgb(176,92,50)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 200001 && valor <= 475000) return { fillColor: "rgb(129,62,17)", color: "#333", weight: 1, fillOpacity: 1 };
+      else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
+    }
 
     // Construcción de leyendas
     function buildLegend(items, title = "INVERSIÓN") {
@@ -774,7 +797,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R1-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R1-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R1-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R1-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R1-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R1.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R1.jpg"
       },
       "II": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R2.jpg",
@@ -795,7 +820,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R2-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R2-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R2-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R2-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R2-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R2.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R2.jpg"
       },
       "III": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R3.jpg",
@@ -816,7 +843,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R3-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R3-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R3-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R3-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R3-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R3.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R3.jpg"
       },
       "IV": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R4.jpg",
@@ -837,7 +866,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R4-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R4-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R4-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R4-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R4-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R4.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R4.jpg"
       },
       "V": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R5.jpg",
@@ -858,7 +889,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R5-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R5-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R5-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R5-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R5-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R5.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R5.jpg"
       },
       "VI": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R6.jpg",
@@ -879,7 +912,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R6-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R6-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R6-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R6-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R6-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R6.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R6.jpg"
       },
       "VII": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R7.jpg",
@@ -900,7 +935,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R7-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R7-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R7-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R7-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R7-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R7.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R7.jpg"
       },
       "VIII": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R8.jpg",
@@ -921,7 +958,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R8-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R8-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R8-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R8-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R8-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R8.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R8.jpg"
       },
       "IX": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R9.jpg",
@@ -942,7 +981,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R9-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R9-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R9-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R9-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R9-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R9.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R9.jpg"
       },
       "X": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R10.jpg",
@@ -963,7 +1004,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R10-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R10-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R10-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R10-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R10-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R10.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R10.jpg"
       },
       "XI": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R11.jpg",
@@ -984,7 +1027,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R11-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R11-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R11-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R11-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R11-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R11.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R11.jpg"
       },
       "XII": {
         "base": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/c8696c2cb607e7a5658ee263c7e8c6cb085c0934/Base-R12.jpg",
@@ -1005,7 +1050,9 @@
         "Energia2B": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/26424a5e68e0f8be0d422d8e712cb60c6966d56f/EnergiaB-R12-2.jpg",
         "Inversion1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R12-1.jpg",
         "Inversion2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R12-2.jpg",
-        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R12-3.jpg"
+        "Inversion3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/35eed33d0908619c948ad681b1096c840b1da636/Inversion-R12-3.jpg",
+        "Paso1":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_24R12.jpg",
+        "Paso2":"https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/7d01e67399100775c29d04d801f105f5567ffaa3/Paso_25R12.jpg"
       },
     };
 
@@ -1487,6 +1534,50 @@
           document.getElementById("programTitle").textContent = "Consolidación de Inversiones Privadas 3er Informe Inversión";
 
           actualizarImagen(regionSeleccionada, "Inversion3");
+
+        } else if (e.target.value === 'Paso1' && informesPasoData) {
+          Paso1Layer = L.geoJSON(informesPasoData, {
+            filter: f => listaMunicipiosDeRegion.includes(getField(f, "NOMGEO")),
+            style: f => estiloPaso1(getField(f, "EF_24"))
+          }).addTo(map);
+
+          municipiosLayer && municipiosLayer.bringToBack();
+          Paso1Layer && Paso1Layer.bringToFront();
+          regionesLayer && regionesLayer.bringToFront();
+          edoLayer && edoLayer.bringToFront();
+
+          buildLegend([
+            { color: "rgb(204,204,204)", label: "Sin inversión" },
+            { color: "rgb(222,184,135)", label: "$1 - $25,000" },
+            { color: "rgb(193,130,67)", label: "$25,001 - $100,000" },
+            { color: "rgb(176,92,50)", label: "$100,001 - $1,075,000" },
+            { color: "rgb(129,62,17)", label: "$1,075,001 - $2,175,000" }
+          ], "INVERSIÓN");
+          document.getElementById("programTitle").textContent = "Emprendiendo Paso a Paso Ejercicio Fiscal 2024 Inversión";
+
+          actualizarImagen(regionSeleccionada, "Paso1");
+
+        } else if (e.target.value === 'Paso2' && informesPasoData) {
+          Paso2Layer = L.geoJSON(informesPasoData, {
+            filter: f => listaMunicipiosDeRegion.includes(getField(f, "NOMGEO")),
+            style: f => estiloPaso2(getField(f, "EF_25"))
+          }).addTo(map);
+
+          municipiosLayer && municipiosLayer.bringToBack();
+          Paso2Layer && Paso2Layer.bringToFront();
+          regionesLayer && regionesLayer.bringToFront();
+          edoLayer && edoLayer.bringToFront();
+
+          buildLegend([
+            { color: "rgb(204,204,204)", label: "Sin inversión" },
+            { color: "rgb(222,184,135)", label: "$1 - $50,000" },
+            { color: "rgb(193,130,67)", label: "$50,001 - $100,000" },
+            { color: "rgb(176,92,50)", label: "$100,001 - $200,000" },
+            { color: "rgb(129,62,17)", label: "$200,001 - $475,000" }
+          ], "INVERSIÓN");
+          document.getElementById("programTitle").textContent = "Emprendiendo Paso a Paso Ejercicio Fiscal 2025 Inversión";
+
+          actualizarImagen(regionSeleccionada, "Paso2");
 
         }
       });

@@ -243,7 +243,9 @@
     <div id="menuOptions">
       <label><input type="radio" name="mapOption" value="NAFIN1"> Impulso NAFIN 2023</label><br>
       <label><input type="radio" name="mapOption" value="NAFIN2"> Impulso NAFIN 2024</label><br>
-      <label><input type="radio" name="mapOption" value="NAFIN3"> Impulso NAFIN 2025</label>
+      <label><input type="radio" name="mapOption" value="NAFIN3"> Impulso NAFIN 2025</label><br>
+      <label><input type="radio" name="mapOption" value="Paso1"> Emprendiendo Paso a Paso 2024</label><br>
+      <label><input type="radio" name="mapOption" value="Paso2"> Emprendiendo Paso a Paso 2025</label>
     </div>
     <div id="legend"><strong>INVERSIÓN</strong></div>
     <div id="programTitle" style="margin-top: 6px; font-weight: bold; font-size: 13px; text-align: center;"></div>
@@ -267,7 +269,7 @@
     // Inicializar mapa y capa base
     var map = L.map('map', {
       zoomSnap: 0.1, 
-      zoomDelta: 0.5 
+      zoomDelta: 0.2 
     }).setView([20.50, -98.95], 8.9);
 
     L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
@@ -279,8 +281,8 @@
 
     // Capas y datos
     var municipiosLayer, regionesLayer, edoLayer;
-    var NAFIN1Layer, NAFIN2Layer, NAFIN3Layer;
-    var informesNAFINData;
+    var NAFIN1Layer, NAFIN2Layer, NAFIN3Layer, Paso1Layer, Paso2Layer;
+    var informesNAFINData,informesPasoData;
     var regionesLabelLayer = L.layerGroup([], { pane: 'labels' }).addTo(map);
     var municipiosLabelLayer = L.layerGroup([], { pane: 'labels' }).addTo(map);
 
@@ -365,6 +367,7 @@
 
     // Cargar datasets de informes
     fetch('NAFIN.geojson').then(res => res.json()).then(data => { informesNAFINData = data; });
+    fetch('Paso.geojson').then(res => res.json()).then(data => { informesPasoData = data; });
 
     // UI refs
     var legendDiv = document.getElementById('legend');
@@ -381,6 +384,8 @@
       if (NAFIN1Layer) { map.removeLayer(NAFIN1Layer); NAFIN1Layer = null; }
       if (NAFIN2Layer) { map.removeLayer(NAFIN2Layer); NAFIN2Layer = null; }
       if (NAFIN3Layer) { map.removeLayer(NAFIN3Layer); NAFIN3Layer = null; }
+      if (Paso1Layer) { map.removeLayer(Paso1Layer); Paso1Layer = null; }
+      if (Paso2Layer) { map.removeLayer(Paso2Layer); Paso2Layer = null; }
       legendDiv.style.display = "none";
       legendDiv.innerHTML = "<strong>INVERSIÓN</strong>";
       document.getElementById('simbolos-panel').style.display = "none";
@@ -393,6 +398,8 @@
       "NAFIN1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/e56c0269948e9528b564726e4402bb5cad1848f2/Impulso%20Inv%202023.pdf",
       "NAFIN2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/e56c0269948e9528b564726e4402bb5cad1848f2/Impulso%20Inv%202024.pdf",
       "NAFIN3": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/e56c0269948e9528b564726e4402bb5cad1848f2/Impulso%20Inv%202025.pdf",
+      "Paso1": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/95abb97b61d0397f84e4438fbae467837503da5a/Paso_Paso_EF_24.pdf",
+      "Paso2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/95abb97b61d0397f84e4438fbae467837503da5a/Paso_Paso_EF_25.pdf",
     };
 
 // Validación del botón de descarga 
@@ -479,6 +486,24 @@
       else if (valor >= 2000001 && valor <= 5180000) return { fillColor: "rgb(250,131,110)", color: "#333", weight: 1, fillOpacity: 1 };
       else if (valor >= 5180001 && valor <= 19069600) return { fillColor: "rgb(237,57,33)", color: "#333", weight: 1, fillOpacity: 1 };
       else if (valor >= 19069601 && valor <= 90691097) return { fillColor: "rgb(230,0,0)", color: "#333", weight: 1, fillOpacity: 1 };
+      else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
+    }
+    function estiloPaso1(valorNum) {
+      var valor = toNumberSafe(valorNum);
+      if (isNaN(valor) || valor === 0) return { fillColor: "rgb(204,204,204)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1 && valor <= 25000) return { fillColor: "rgb(222,184,135)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 25001 && valor <= 100000) return { fillColor: "rgb(193,130,67)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 100001 && valor <= 1075000) return { fillColor: "rgb(176,92,50)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1075001 && valor <= 2175000) return { fillColor: "rgb(129,62,17)", color: "#333", weight: 1, fillOpacity: 1 };
+      else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
+    }
+    function estiloPaso2(valorNum) {
+      var valor = toNumberSafe(valorNum);
+      if (isNaN(valor) || valor === 0) return { fillColor: "rgb(204,204,204)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 1 && valor <= 50000) return { fillColor: "rgb(222,184,135)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 50001 && valor <= 100000) return { fillColor: "rgb(193,130,67)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 100001 && valor <= 200000) return { fillColor: "rgb(176,92,50)", color: "#333", weight: 1, fillOpacity: 1 };
+      else if (valor >= 200001 && valor <= 475000) return { fillColor: "rgb(129,62,17)", color: "#333", weight: 1, fillOpacity: 1 };
       else return { fillColor: "#ccc", color: "#333", weight: 1, fillOpacity: 1 };
     }
 
@@ -640,6 +665,64 @@
           var downloadBtn = document.getElementById("downloadBtn");
           downloadBtn.disabled = false;
           downloadBtn.dataset.url = archivosPorPrograma["NAFIN3"];
+        } else if (e.target.value === 'Paso1' && informesPasoData) {
+          Paso1Layer = L.geoJSON(informesPasoData, {
+            style: f => estiloPaso1(getField(f, "EF_24"))
+          }).addTo(map);
+
+          municipiosLayer && municipiosLayer.bringToBack();
+          Paso1Layer && Paso1Layer.bringToFront();
+          regionesLayer && regionesLayer.bringToFront();
+          edoLayer && edoLayer.bringToFront();
+
+          buildLegend([
+            { color: "rgb(204,204,204)", label: "Sin inversión" },
+            { color: "rgb(222,184,135)", label: "$1 - $25,000 (5)" },
+            { color: "rgb(193,130,67)", label: "$25,001 - $100,000 (1)" },
+            { color: "rgb(176,92,50)", label: "$100,001 - $1,075,000 (1)" },
+            { color: "rgb(129,62,17)", label: "$1,075,001 - $2,175,000 (1)" }
+          ], "INVERSIÓN");
+          buildSimbolos([
+            { borderColor: "#999", label: "Municipio" },
+            { borderColor: "#000", label: "Región" },
+            { borderColor: "rgb(255,0,0)", label: "Estado de Hidalgo" }
+          ]);
+          document.getElementById("programTitle").textContent = "Emprendiendo Paso a Paso Ejercicio Fiscal 2024 Inversión";
+
+          // habilitar botón de descarga para este programa
+          var downloadBtn = document.getElementById("downloadBtn");
+          downloadBtn.disabled = false;
+          downloadBtn.dataset.url = archivosPorPrograma["Paso1"];
+
+        } else if (e.target.value === 'Paso2' && informesPasoData) {
+          Paso2Layer = L.geoJSON(informesPasoData, {
+            style: f => estiloPaso2(getField(f, "EF_25"))
+          }).addTo(map);
+
+          municipiosLayer && municipiosLayer.bringToBack();
+          Paso2Layer && Paso2Layer.bringToFront();
+          regionesLayer && regionesLayer.bringToFront();
+          edoLayer && edoLayer.bringToFront();
+
+          buildLegend([
+            { color: "rgb(204,204,204)", label: "Sin inversión" },
+            { color: "rgb(222,184,135)", label: "$1 - $50,000 (4)" },
+            { color: "rgb(193,130,67)", label: "$50,001 - $100,000 (3)" },
+            { color: "rgb(176,92,50)", label: "$100,001 - $200,000 (1)" },
+            { color: "rgb(129,62,17)", label: "$200,001 - $475,000 (1)" }
+          ], "INVERSIÓN");
+          buildSimbolos([
+            { borderColor: "#999", label: "Municipio" },
+            { borderColor: "#000", label: "Región" },
+            { borderColor: "rgb(255,0,0)", label: "Estado de Hidalgo" }
+          ]);
+          document.getElementById("programTitle").textContent = "Impluso NAFIN +HIDALGO Ejercicio Fiscal 2025 Inversión";
+
+          // habilitar botón de descarga para este programa
+          var downloadBtn = document.getElementById("downloadBtn");
+          downloadBtn.disabled = false;
+          downloadBtn.dataset.url = archivosPorPrograma["Paso2"];
+
         }
       });
     });
