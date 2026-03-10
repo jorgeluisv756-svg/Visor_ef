@@ -402,24 +402,6 @@
       "Paso2": "https://raw.githubusercontent.com/jorgeluisv756-svg/Tablas/95abb97b61d0397f84e4438fbae467837503da5a/Paso_Paso_EF_25.pdf",
     };
 
-// Validación del botón de descarga 
-    var downloadBtn = document.getElementById("downloadBtn"); 
-
-    downloadBtn.onclick = function() { 
-      var seleccionado = document.querySelector('input[name="mapOption"]:checked'); 
-      if (!seleccionado) { 
-        alert("No hay programa seleccionado."); 
-        return; 
-      } 
-    
-    var archivo = archivosPorPrograma[seleccionado.value]; 
-    if (archivo) { 
-      window.open(archivo, "_blank"); 
-    } else { 
-      alert("No hay archivo disponible para este programa."); 
-    } 
-   };
-
     // Utilidades
     function toNumberSafe(x) {
       if (x === null || x === undefined) return NaN;
