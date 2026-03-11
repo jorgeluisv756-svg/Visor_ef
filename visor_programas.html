@@ -1,0 +1,474 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Consulta de Datos</title>
+
+<style>
+
+body{
+font-family: Arial, sans-serif;
+background:#f4f4f4;
+margin:0;
+}
+
+/* ENCABEZADO */
+
+.header{
+background:#f4f4f4;
+padding:15px;
+text-align:center;
+}
+
+.header img{
+height:70px;
+display:block;
+margin:auto;
+}
+
+/* CONTENEDOR */
+
+.container{
+max-width:1200px;
+margin:auto;
+padding:20px;
+}
+
+h1{
+margin-bottom:5px;
+}
+
+/* SELECTORES */
+
+select{
+width:100%;
+padding:10px;
+margin-bottom:15px;
+font-size:16px;
+border-radius:6px;
+border:1px solid #ccc;
+}
+
+/* TABLA */
+
+.table-container{
+overflow-x:auto;
+background:white;
+border-radius:6px;
+box-shadow:0 2px 5px rgba(0,0,0,0.1);
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+}
+
+.center{
+text-align:center;
+}
+
+thead{
+background:#333;
+color:white;
+}
+
+th,td{
+padding:10px;
+border-bottom:1px solid #ddd;
+text-align:left;
+}
+
+/* BARRA DE AVANCE */
+
+.progress-bar{
+height:10px;
+background:#ddd;
+border-radius:5px;
+margin-top:5px;
+}
+
+.progress{
+height:10px;
+background:#4caf50;
+border-radius:5px;
+}
+
+/* RESPONSIVE */
+
+@media(max-width:768px){
+
+.header img{
+height:50px;
+}
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="header">
+
+        <img class="logo"
+            src="https://raw.githubusercontent.com/jorgeluisv756-svg/imagenes_kmz/7c7924c0d0c89c5adaf112d1b8e3fb9db3258400/Logotipo%20armas30%20(1).png">
+
+</div>
+
+
+<div class="container">
+
+<h1>Consulta de Datos</h1>
+<p>Seleccione el año fiscal y el área correspondiente</p>
+
+<!-- SELECTOR AÑO -->
+
+<select id="anioSelect"></select>
+
+<!-- SELECTOR AREA -->
+
+<select id="areaSelect"></select>
+
+
+<div class="table-container">
+
+<table id="tablaProgramas">
+
+<thead>
+<tr>
+<th>No.</th>
+<th>Nombre del Programa</th>
+<th>Monto programado</th>
+<th>Monto ejercido</th>
+<th>Avance</th>
+<th>Beneficiarios programados</th>
+<th>Beneficiarios totales</th>
+<th>Estatus</th>
+</tr>
+</thead>
+
+<tbody></tbody>
+
+</table>
+
+</div>
+
+</div>
+
+
+<script>
+
+/* BASE DE DATOS EDITABLE */
+
+const datos = {
+
+"2026":{
+
+    "Agencia de Desarrollo Valle de Plata":[
+    
+],
+
+    "Agencia Estatal de Energía":[
+{
+nombre:"Energía para el Bienestar",
+montoprogramado:"$10,000,000",
+montoejercido: "$620,000",
+avance:62,
+beneficiariosprogramados:35,
+beneficiariosejercidos: 26,
+estatus:"Vigente"
+}
+
+],
+
+    "Coordinación de Administración y Planeación":[
+
+],
+
+    "Corporación de Fomento de Infraestructura Industrial":[
+
+],
+
+    "Instituto Hidalguense de Competitividad Empresarial":[
+
+],
+
+    "Subsecretaría de Fomento Económico":[
+{
+nombre:"Impulso Nafin por Hidalgo",
+montoprogramado:"$734,445,920",
+montoejercido:"$418,634,174",
+avance:57,
+beneficiariosprogramados:222,
+beneficiariosejercidos: 150,
+estatus:"Vigente"
+},
+
+{
+nombre:"Transformando con la Juventud",
+montoprogramado:"$20,000,000",
+montoejercido:"-",
+avance:0,
+beneficiariosprogramados:470,
+beneficiariosejercidos:"-",
+estatus:"Vigente"
+}
+
+],
+
+    "Subsecretaría de Inversiones y Economía Sectorial":[
+
+]
+
+},
+
+"2025":{
+
+    "Agencia de Desarrollo Valle de Plata":[
+    
+],
+
+    "Agencia Estatal de Energía":[
+
+],
+
+    "Coordinación de Administración y Planeación":[
+
+],
+
+    "Corporación de Fomento de Infraestructura Industrial":[
+
+],
+
+    "Instituto Hidalguense de Competitividad Empresarial":[
+
+],
+
+    "Subsecretaría de Fomento Económico":[
+
+],
+
+    "Subsecretaría de Inversiones y Economía Sectorial":[
+
+]
+},
+
+"2024":{
+
+    "Agencia de Desarrollo Valle de Plata":[
+    
+],
+
+    "Agencia Estatal de Energía":[
+
+],
+
+    "Coordinación de Administración y Planeación":[
+
+],
+
+    "Corporación de Fomento de Infraestructura Industrial":[
+
+],
+
+    "Instituto Hidalguense de Competitividad Empresarial":[
+
+],
+
+    "Subsecretaría de Fomento Económico":[
+
+],
+
+    "Subsecretaría de Inversiones y Economía Sectorial":[
+
+]
+},
+
+"2023":{
+
+    "Agencia de Desarrollo Valle de Plata":[
+    
+],
+
+    "Agencia Estatal de Energía":[
+
+],
+
+    "Coordinación de Administración y Planeación":[
+
+],
+
+    "Corporación de Fomento de Infraestructura Industrial":[
+
+],
+
+    "Instituto Hidalguense de Competitividad Empresarial":[
+
+],
+
+    "Subsecretaría de Fomento Económico":[
+
+],
+
+    "Subsecretaría de Inversiones y Economía Sectorial":[
+
+]
+}
+
+};
+
+
+/* SELECTORES */
+
+const anioSelect = document.getElementById("anioSelect");
+const areaSelect = document.getElementById("areaSelect");
+
+
+/* CARGAR AÑOS */
+
+Object.keys(datos).forEach(anio=>{
+
+let option = document.createElement("option");
+
+option.value = anio;
+option.textContent = anio;
+
+anioSelect.appendChild(option);
+
+});
+
+
+/* CARGAR AREAS */
+
+function cargarAreas(){
+
+let anio = anioSelect.value;
+
+areaSelect.innerHTML="";
+
+Object.keys(datos[anio]).forEach(area=>{
+
+let option = document.createElement("option");
+
+option.value = area;
+option.textContent = area;
+
+areaSelect.appendChild(option);
+
+});
+
+cargarProgramas();
+
+}
+
+
+/* CARGAR PROGRAMAS */
+
+function cargarProgramas(){
+
+let anio = anioSelect.value;
+let area = areaSelect.value;
+
+const tbody = document.querySelector("#tablaProgramas tbody");
+tbody.innerHTML="";
+
+let programas = datos[anio][area];
+
+if(programas.length === 0){
+tbody.innerHTML = "<tr><td colspan='9'>No hay programas registrados</td></tr>";
+return;
+}
+
+/* detectar columnas con datos */
+
+let usarMontoProgramado=false;
+let usarMontoEjercido=false;
+let usarAvance=false;
+let usarBenefProgramados=false;
+let usarBenefTotales=false;
+
+programas.forEach(p=>{
+
+if(p.montoprogramado && p.montoprogramado !== "-") usarMontoProgramado=true;
+if(p.montoejercido && p.montoejercido !== "-") usarMontoEjercido=true;
+if(p.avance!=null) usarAvance=true;
+if(p.beneficiariosprogramados!=null) usarBenefProgramados=true;
+if(p.beneficiariosejercidos!=null) usarBenefTotales=true;
+
+});
+
+/* construir tabla */
+
+programas.forEach((programa,index)=>{
+
+let avanceHTML="—";
+
+if(programa.avance!=null){
+
+avanceHTML = `
+${programa.avance}%
+<div class="progress-bar">
+<div class="progress" style="width:${programa.avance}%"></div>
+</div>
+`;
+
+}
+
+let fila = `<tr>
+
+<td>${index+1}</td>
+
+<td>${programa.nombre ?? "—"}</td>
+
+`;
+
+if(usarMontoProgramado){
+fila += `<td class="center">${programa.montoprogramado ?? "—"}</td>`;
+}
+
+if(usarMontoEjercido){
+fila += `<td class="center">${programa.montoejercido ?? "—"}</td>`;
+}
+
+if(usarAvance){
+fila += `<td>${avanceHTML}</td>`;
+}
+
+if(usarBenefProgramados){
+fila += `<td class="center">${programa.beneficiariosprogramados ?? "—"}</td>`;
+}
+
+if(usarBenefTotales){
+fila += `<td class="center">${programa.beneficiariosejercidos ?? "—"}</td>`;
+}
+
+fila += `<td>${programa.estatus ?? "—"}</td></tr>`;
+
+tbody.innerHTML += fila;
+
+});
+
+}
+
+
+/* EVENTOS */
+
+anioSelect.addEventListener("change", cargarAreas);
+
+areaSelect.addEventListener("change", cargarProgramas);
+
+
+/* CARGA INICIAL */
+
+cargarAreas();
+
+</script>
+
+</body>
+</html>
