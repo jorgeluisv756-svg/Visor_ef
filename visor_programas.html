@@ -454,22 +454,10 @@
 
                     /* tamaño hoja carta horizontal */
                     let pageWidth = 279;
-                    let pageHeight = 216;
 
-                    /* márgenes */
-                    let margin = 10;
-
-                    /* ancho disponible */
-                    let usableWidth = pageWidth - (margin * 2);
-
-                    /* aplicar zoom */
+                    /* zoom 115% */
                     let zoom = 1.15;
-                    let imgWidth = usableWidth * zoom;
-
-                    /* limitar para que no supere la hoja */
-                    if (imgWidth > usableWidth) {
-                        imgWidth = usableWidth;
-                    }
+                    let imgWidth = pageWidth * zoom;
 
                     /* altura proporcional */
                     let imgHeight = canvas.height * imgWidth / canvas.width;
@@ -478,7 +466,7 @@
                     let x = (pageWidth - imgWidth) / 2;
 
                     /* margen superior */
-                    let y = margin;
+                    let y = 10;
 
                     pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
 
