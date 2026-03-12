@@ -446,22 +446,37 @@
                     useCORS: true
                 }).then(canvas => {
 
-                    let link = document.createElement("a");
+                    const { jsPDF } = window.jspdf;
+
+                    let pdf = new jsPDF("landscape", "mm", "letter");
+
+                    let imgData = canvas.toDataURL("image/png");
+
+                    /* tamaño hoja carta horizontal */
+                    let pageWidth = 279;
+
+                    /* zoom 115% */
+                    let zoom = 1.15;
+                    let imgWidth = pageWidth * zoom;
+
+                    /* altura proporcional */
+                    let imgHeight = canvas.height * imgWidth / canvas.width;
+
+                    /* centrar horizontalmente */
+                    let x = (pageWidth - imgWidth) / 2;
+
+                    /* margen superior */
+                    let y = 10;
+
+                    pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
 
                     let areaArchivo = area.replace(/\s/g, "_");
 
-                    link.download = `Consulta_${anio}_${areaArchivo}.png`;
+                    pdf.save(`Consulta_${anio}_${areaArchivo}.pdf`);
 
-                    link.href = canvas.toDataURL();
-
-                    link.click();
-
-                    /* volver a mostrar botón */
+                    /* restaurar visor */
 
                     boton.style.display = "block";
-
-                    /* ocultar encabezado */
-
                     encabezado.style.display = "none";
                     pie.style.display = "none";
 
@@ -565,6 +580,7 @@
         </script>
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </body>
 
