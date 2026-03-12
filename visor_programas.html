@@ -3,472 +3,550 @@
 
 <head>
 
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-<title>Consulta de Datos</title>
+    <title>Consulta de Datos</title>
 
-<style>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f4f4f4;
+            margin: 0;
+        }
 
-body{
-font-family: Arial, sans-serif;
-background:#f4f4f4;
-margin:0;
-}
+        /* ENCABEZADO */
 
-/* ENCABEZADO */
+        .header {
+            background: #f4f4f4;
+            padding: 15px;
+            text-align: center;
+        }
 
-.header{
-background:#f4f4f4;
-padding:15px;
-text-align:center;
-}
+        .header img {
+            width: 320px;
+            display: block;
+            max-width: 90%;
+            margin: auto;
+        }
 
-.header img{
-height:70px;
-display:block;
-margin:auto;
-}
+        /* CONTENEDOR */
 
-/* CONTENEDOR */
+        .container {
+            max-width: 1200px;
+            margin: auto;
+            padding: 20px;
+        }
 
-.container{
-max-width:1200px;
-margin:auto;
-padding:20px;
-}
+        h1 {
+            margin-bottom: 5px;
+        }
 
-h1{
-margin-bottom:5px;
-}
+        /* SELECTORES */
 
-/* SELECTORES */
+        select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #ccc;
+        }
 
-select{
-width:100%;
-padding:10px;
-margin-bottom:15px;
-font-size:16px;
-border-radius:6px;
-border:1px solid #ccc;
-}
+        /* TABLA */
 
-/* TABLA */
+        .table-container {
+            overflow-x: auto;
+            background: white;
+            border-radius: 6px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+        }
 
-.table-container{
-overflow-x:auto;
-background:white;
-border-radius:6px;
-box-shadow:0 2px 5px rgba(0,0,0,0.1);
-}
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
 
-table{
-width:100%;
-border-collapse:collapse;
-}
+        .center {
+            text-align: center;
+        }
 
-.center{
-text-align:center;
-}
+        thead {
+            background: rgba(98, 17, 50);
+            color: white;
+        }
 
-thead{
-background:#333;
-color:white;
-}
+        th,
+        td {
+            padding: 10px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
 
-th,td{
-padding:10px;
-border-bottom:1px solid #ddd;
-text-align:left;
-}
+        /* BARRA DE AVANCE */
 
-/* BARRA DE AVANCE */
+        .progress-bar {
+            height: 10px;
+            background: #ddd;
+            border-radius: 5px;
+            margin-top: 5px;
+        }
 
-.progress-bar{
-height:10px;
-background:#ddd;
-border-radius:5px;
-margin-top:5px;
-}
+        .progress {
+            height: 10px;
+            background: #4caf50;
+            border-radius: 5px;
+        }
 
-.progress{
-height:10px;
-background:#4caf50;
-border-radius:5px;
-}
+        /* Boton de descarga reporte*/
+        #btnDescargar {
 
-/* RESPONSIVE */
+            position: fixed;
+            bottom: 40px;
+            right: 20px;
+            background: #8b2d2d;
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            cursor: pointer;
 
-@media(max-width:768px){
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
 
-.header img{
-height:50px;
-}
+        }
 
-}
+        #btnDescargar:hover {
+            background: #6e2222;
+        }
 
-</style>
+        /* RESPONSIVE */
+
+        @media(max-width:768px) {
+
+            .header img {
+                height: 50px;
+            }
+
+        }
+    </style>
 
 </head>
 
 
 <body>
 
-<div class="header">
+    <div class="header">
 
         <img class="logo"
             src="https://raw.githubusercontent.com/jorgeluisv756-svg/imagenes_kmz/7c7924c0d0c89c5adaf112d1b8e3fb9db3258400/Logotipo%20armas30%20(1).png">
 
-</div>
+    </div>
 
+    <div id="reporteExportar">
 
-<div class="container">
+        <div id="encabezadoReporte" style="display:none;text-align:center;margin-bottom:20px;">
 
-<h1>Consulta de Datos</h1>
-<p>Seleccione el año fiscal y el área correspondiente</p>
+            <img src="https://raw.githubusercontent.com/jorgeluisv756-svg/imagenes_kmz/7c7924c0d0c89c5adaf112d1b8e3fb9db3258400/Logotipo%20armas30%20(1).png"
+                id="logoReporte" style="height:70px;"><br>
 
-<!-- SELECTOR AÑO -->
+        </div>
 
-<select id="anioSelect"></select>
+        <div class="container">
 
-<!-- SELECTOR AREA -->
+            <div class="container">
 
-<select id="areaSelect"></select>
+                <h1>Consulta de Datos</h1>
+                <p>Seleccione el año fiscal y el área correspondiente</p>
+                <button id="btnDescargar">Descargar reporte</button>
 
+                <!-- SELECTOR AÑO -->
+                <select id="anioSelect"></select>
 
-<div class="table-container">
+                <!-- SELECTOR AREA -->
+                <select id="areaSelect"></select>
 
-<table id="tablaProgramas">
 
-<thead>
-<tr>
-<th>No.</th>
-<th>Nombre del Programa</th>
-<th>Monto programado</th>
-<th>Monto ejercido</th>
-<th>Avance</th>
-<th>Beneficiarios programados</th>
-<th>Beneficiarios totales</th>
-<th>Estatus</th>
-</tr>
-</thead>
+                <div class="table-container">
 
-<tbody></tbody>
+                    <table id="tablaProgramas">
 
-</table>
+                        <thead>
+                            <tr>
+                                <th class="center">No.</th>
+                                <th class="center">Nombre del Programa</th>
+                                <th class="center">Monto programado</th>
+                                <th class="center">Monto ejercido</th>
+                                <th class="center">Avance</th>
+                                <th class="center">Beneficiarios programados</th>
+                                <th class="center">Beneficiarios totales</th>
+                                <th class="center">Estatus</th>
+                            </tr>
+                        </thead>
 
-</div>
+                        <tbody></tbody>
 
-</div>
+                    </table>
 
+                </div>
+                <div id="pieReporte" style="display:none; text-align:center; margin-top:20px; font-size:13.5px;">
 
-<script>
+                    <b>Sistema de Información Económica</b><br>
 
-/* BASE DE DATOS EDITABLE */
+                    <div id="datosReporte"></div>
 
-const datos = {
+                </div>
 
-"2026":{
+            </div>
+        </div>
 
-    "Agencia de Desarrollo Valle de Plata":[
-    
-],
 
-    "Agencia Estatal de Energía":[
-{
-nombre:"Energía para el Bienestar",
-montoprogramado:"$10,000,000",
-montoejercido: "$620,000",
-avance:62,
-beneficiariosprogramados:35,
-beneficiariosejercidos: 26,
-estatus:"Vigente"
-}
+        <script>
 
-],
+            /* BASE DE DATOS EDITABLE */
+            const datos = {
 
-    "Coordinación de Administración y Planeación":[
+                "2026": {
 
-],
+                    "Agencia de Desarrollo Valle de Plata": [
 
-    "Corporación de Fomento de Infraestructura Industrial":[
+                    ],
 
-],
+                    "Agencia Estatal de Energía": [
+                        {
+                            nombre: "Energía para el Bienestar",
+                            montoprogramado: "$10,000,000",
+                            montoejercido: "$620,000",
+                            avance: 62,
+                            beneficiariosprogramados: 35,
+                            beneficiariosejercidos: 26,
+                            estatus: "Vigente"
+                        }
 
-    "Instituto Hidalguense de Competitividad Empresarial":[
+                    ],
 
-],
+                    "Coordinación de Administración y Planeación": [
 
-    "Subsecretaría de Fomento Económico":[
-{
-nombre:"Impulso Nafin por Hidalgo",
-montoprogramado:"$734,445,920",
-montoejercido:"$418,634,174",
-avance:57,
-beneficiariosprogramados:222,
-beneficiariosejercidos: 150,
-estatus:"Vigente"
-},
+                    ],
 
-{
-nombre:"Transformando con la Juventud",
-montoprogramado:"$20,000,000",
-montoejercido:"-",
-avance:0,
-beneficiariosprogramados:470,
-beneficiariosejercidos:"-",
-estatus:"Vigente"
-}
+                    "Corporación de Fomento de Infraestructura Industrial": [
 
-],
+                    ],
 
-    "Subsecretaría de Inversiones y Economía Sectorial":[
+                    "Instituto Hidalguense de Competitividad Empresarial": [
 
-]
+                    ],
 
-},
+                    "Subsecretaría de Fomento Económico": [
+                        {
+                            nombre: "Impulso Nafin por Hidalgo",
+                            montoprogramado: "$734,445,920",
+                            montoejercido: "$418,634,174",
+                            avance: 57,
+                            beneficiariosprogramados: 222,
+                            beneficiariosejercidos: 150,
+                            estatus: "Vigente"
+                        },
 
-"2025":{
+                        {
+                            nombre: "Transformando con la Juventud",
+                            montoprogramado: "$20,000,000",
+                            montoejercido: "-",
+                            avance: 0,
+                            beneficiariosprogramados: 470,
+                            beneficiariosejercidos: "-",
+                            estatus: "En evaluación"
+                        }
 
-    "Agencia de Desarrollo Valle de Plata":[
-    
-],
+                    ],
 
-    "Agencia Estatal de Energía":[
+                    "Subsecretaría de Inversiones y Economía Sectorial": [
 
-],
+                    ]
 
-    "Coordinación de Administración y Planeación":[
+                },
 
-],
+                "2025": {
 
-    "Corporación de Fomento de Infraestructura Industrial":[
+                    "Agencia de Desarrollo Valle de Plata": [
 
-],
+                    ],
 
-    "Instituto Hidalguense de Competitividad Empresarial":[
+                    "Agencia Estatal de Energía": [
 
-],
+                    ],
 
-    "Subsecretaría de Fomento Económico":[
+                    "Coordinación de Administración y Planeación": [
 
-],
+                    ],
 
-    "Subsecretaría de Inversiones y Economía Sectorial":[
+                    "Corporación de Fomento de Infraestructura Industrial": [
 
-]
-},
+                    ],
 
-"2024":{
+                    "Instituto Hidalguense de Competitividad Empresarial": [
 
-    "Agencia de Desarrollo Valle de Plata":[
-    
-],
+                    ],
 
-    "Agencia Estatal de Energía":[
+                    "Subsecretaría de Fomento Económico": [
 
-],
+                    ],
 
-    "Coordinación de Administración y Planeación":[
+                    "Subsecretaría de Inversiones y Economía Sectorial": [
 
-],
+                    ]
+                },
 
-    "Corporación de Fomento de Infraestructura Industrial":[
+                "2024": {
 
-],
+                    "Agencia de Desarrollo Valle de Plata": [
 
-    "Instituto Hidalguense de Competitividad Empresarial":[
+                    ],
 
-],
+                    "Agencia Estatal de Energía": [
 
-    "Subsecretaría de Fomento Económico":[
+                    ],
 
-],
+                    "Coordinación de Administración y Planeación": [
 
-    "Subsecretaría de Inversiones y Economía Sectorial":[
+                    ],
 
-]
-},
+                    "Corporación de Fomento de Infraestructura Industrial": [
 
-"2023":{
+                    ],
 
-    "Agencia de Desarrollo Valle de Plata":[
-    
-],
+                    "Instituto Hidalguense de Competitividad Empresarial": [
 
-    "Agencia Estatal de Energía":[
+                    ],
 
-],
+                    "Subsecretaría de Fomento Económico": [
 
-    "Coordinación de Administración y Planeación":[
+                    ],
 
-],
+                    "Subsecretaría de Inversiones y Economía Sectorial": [
 
-    "Corporación de Fomento de Infraestructura Industrial":[
+                    ]
+                },
 
-],
+                "2023": {
 
-    "Instituto Hidalguense de Competitividad Empresarial":[
+                    "Agencia de Desarrollo Valle de Plata": [
 
-],
+                    ],
 
-    "Subsecretaría de Fomento Económico":[
+                    "Agencia Estatal de Energía": [
 
-],
+                    ],
 
-    "Subsecretaría de Inversiones y Economía Sectorial":[
+                    "Coordinación de Administración y Planeación": [
 
-]
-}
+                    ],
 
-};
+                    "Corporación de Fomento de Infraestructura Industrial": [
 
+                    ],
 
-/* SELECTORES */
+                    "Instituto Hidalguense de Competitividad Empresarial": [
 
-const anioSelect = document.getElementById("anioSelect");
-const areaSelect = document.getElementById("areaSelect");
+                    ],
 
+                    "Subsecretaría de Fomento Económico": [
 
-/* CARGAR AÑOS */
+                    ],
 
-Object.keys(datos).forEach(anio=>{
+                    "Subsecretaría de Inversiones y Economía Sectorial": [
 
-let option = document.createElement("option");
+                    ]
+                }
 
-option.value = anio;
-option.textContent = anio;
+            };
 
-anioSelect.appendChild(option);
 
-});
+            /* SELECTORES */
+            const anioSelect = document.getElementById("anioSelect");
+            const areaSelect = document.getElementById("areaSelect");
 
 
-/* CARGAR AREAS */
+            /* CARGAR AÑOS */
+            Object.keys(datos).forEach(anio => {
 
-function cargarAreas(){
+                let option = document.createElement("option");
 
-let anio = anioSelect.value;
+                option.value = anio;
+                option.textContent = anio;
 
-areaSelect.innerHTML="";
+                anioSelect.appendChild(option);
 
-Object.keys(datos[anio]).forEach(area=>{
+            });
 
-let option = document.createElement("option");
 
-option.value = area;
-option.textContent = area;
+            /* CARGAR AREAS */
+            function cargarAreas() {
 
-areaSelect.appendChild(option);
+                let anio = anioSelect.value;
 
-});
+                areaSelect.innerHTML = "";
 
-cargarProgramas();
+                Object.keys(datos[anio]).forEach(area => {
 
-}
+                    let option = document.createElement("option");
 
+                    option.value = area;
+                    option.textContent = area;
 
-/* CARGAR PROGRAMAS */
+                    areaSelect.appendChild(option);
 
-function cargarProgramas(){
+                });
 
-let anio = anioSelect.value;
-let area = areaSelect.value;
+                cargarProgramas();
 
-const tbody = document.querySelector("#tablaProgramas tbody");
-tbody.innerHTML="";
+            }
 
-let programas = datos[anio][area];
+            /*logica boton reporte*/
+            document.getElementById("btnDescargar").addEventListener("click", function () {
 
-if(programas.length === 0){
-tbody.innerHTML = "<tr><td colspan='9'>No hay programas registrados</td></tr>";
-return;
-}
+                let boton = document.getElementById("btnDescargar");
 
-/* detectar columnas con datos */
+                /* ocultar botón */
+                boton.style.display = "none";
 
-let usarMontoProgramado=false;
-let usarMontoEjercido=false;
-let usarAvance=false;
-let usarBenefProgramados=false;
-let usarBenefTotales=false;
+                let anio = document.getElementById("anioSelect").value;
+                let area = document.getElementById("areaSelect").value;
 
-programas.forEach(p=>{
+                let hoy = new Date();
+                let fecha = hoy.toLocaleDateString("es-MX");
 
-if(p.montoprogramado && p.montoprogramado !== "-") usarMontoProgramado=true;
-if(p.montoejercido && p.montoejercido !== "-") usarMontoEjercido=true;
-if(p.avance!=null) usarAvance=true;
-if(p.beneficiariosprogramados!=null) usarBenefProgramados=true;
-if(p.beneficiariosejercidos!=null) usarBenefTotales=true;
+                /* llenar encabezado */
+                document.getElementById("datosReporte").innerHTML =
+                    `Fecha de descarga: ${fecha}`;
 
-});
+                let pie = document.getElementById("pieReporte");
+                pie.style.display = "block";
 
-/* construir tabla */
+                let encabezado = document.getElementById("encabezadoReporte");
+                encabezado.style.display = "block";
 
-programas.forEach((programa,index)=>{
+                html2canvas(document.getElementById("reporteExportar"), {
+                    scale: 3,
+                    useCORS: true
+                }).then(canvas => {
 
-let avanceHTML="—";
+                    let link = document.createElement("a");
 
-if(programa.avance!=null){
+                    let areaArchivo = area.replace(/\s/g, "_");
 
-avanceHTML = `
+                    link.download = `Consulta_${anio}_${areaArchivo}.png`;
+
+                    link.href = canvas.toDataURL();
+
+                    link.click();
+
+                    /* volver a mostrar botón */
+
+                    boton.style.display = "block";
+
+                    /* ocultar encabezado */
+
+                    encabezado.style.display = "none";
+                    pie.style.display = "none";
+
+                });
+
+            });
+
+            /* CARGAR PROGRAMAS */
+            function cargarProgramas() {
+
+                let anio = anioSelect.value;
+                let area = areaSelect.value;
+
+                const tbody = document.querySelector("#tablaProgramas tbody");
+                tbody.innerHTML = "";
+
+                let programas = datos[anio][area];
+
+                if (programas.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='9'>No hay registros</td></tr>";
+                    return;
+                }
+
+                /* detectar columnas con datos */
+
+                let usarMontoProgramado = false;
+                let usarMontoEjercido = false;
+                let usarAvance = false;
+                let usarBenefProgramados = false;
+                let usarBenefTotales = false;
+
+                programas.forEach(p => {
+
+                    if (p.montoprogramado && p.montoprogramado !== "-") usarMontoProgramado = true;
+                    if (p.montoejercido && p.montoejercido !== "-") usarMontoEjercido = true;
+                    if (p.avance != null) usarAvance = true;
+                    if (p.beneficiariosprogramados != null) usarBenefProgramados = true;
+                    if (p.beneficiariosejercidos != null) usarBenefTotales = true;
+
+                });
+
+                /* construir tabla */
+                programas.forEach((programa, index) => {
+
+                    let avanceHTML = "—";
+
+                    if (programa.avance != null) {
+
+                        avanceHTML = `
 ${programa.avance}%
 <div class="progress-bar">
 <div class="progress" style="width:${programa.avance}%"></div>
-</div>
-`;
+</div>`;
 
-}
+                    }
 
-let fila = `<tr>
+                    let fila = `<tr>
 
-<td>${index+1}</td>
+<td>${index + 1}</td>
 
-<td>${programa.nombre ?? "—"}</td>
+<td>${programa.nombre ?? "—"}</td>`;
 
-`;
+                    if (usarMontoProgramado) {
+                        fila += `<td class="center">${programa.montoprogramado ?? "—"}</td>`;
+                    }
 
-if(usarMontoProgramado){
-fila += `<td class="center">${programa.montoprogramado ?? "—"}</td>`;
-}
+                    if (usarMontoEjercido) {
+                        fila += `<td class="center">${programa.montoejercido ?? "—"}</td>`;
+                    }
 
-if(usarMontoEjercido){
-fila += `<td class="center">${programa.montoejercido ?? "—"}</td>`;
-}
+                    if (usarAvance) {
+                        fila += `<td>${avanceHTML}</td>`;
+                    }
 
-if(usarAvance){
-fila += `<td>${avanceHTML}</td>`;
-}
+                    if (usarBenefProgramados) {
+                        fila += `<td class="center">${programa.beneficiariosprogramados ?? "—"}</td>`;
+                    }
 
-if(usarBenefProgramados){
-fila += `<td class="center">${programa.beneficiariosprogramados ?? "—"}</td>`;
-}
+                    if (usarBenefTotales) {
+                        fila += `<td class="center">${programa.beneficiariosejercidos ?? "—"}</td>`;
+                    }
 
-if(usarBenefTotales){
-fila += `<td class="center">${programa.beneficiariosejercidos ?? "—"}</td>`;
-}
+                    fila += `<td>${programa.estatus ?? "—"}</td></tr>`;
 
-fila += `<td>${programa.estatus ?? "—"}</td></tr>`;
+                    tbody.innerHTML += fila;
 
-tbody.innerHTML += fila;
+                });
 
-});
+            }
 
-}
+            anioSelect.addEventListener("change", cargarAreas);
 
+            areaSelect.addEventListener("change", cargarProgramas);
 
-/* EVENTOS */
+            cargarAreas();
 
-anioSelect.addEventListener("change", cargarAreas);
+        </script>
 
-areaSelect.addEventListener("change", cargarProgramas);
-
-
-/* CARGA INICIAL */
-
-cargarAreas();
-
-</script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 
 </body>
+
 </html>
