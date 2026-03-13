@@ -19,7 +19,7 @@
 
         .header {
             background: #f4f4f4;
-            padding: 15px;
+            padding: 10px;
             text-align: center;
         }
 
@@ -35,7 +35,9 @@
         .container {
             max-width: 1200px;
             margin: auto;
-            padding: 20px;
+            padding: 5px;
+            padding-top: 0;
+            margin-bottom: 5px;
         }
 
         h1 {
@@ -79,7 +81,7 @@
         th,
         td {
             padding: 10px;
-            border-bottom: 1px solid #ddd;
+            border-bottom: none;
             text-align: left;
         }
 
@@ -172,15 +174,14 @@
             <div class="container">
 
                 <h1>Consulta de Datos</h1>
-                <p>Seleccione el año fiscal y el área correspondiente</p>
+                <p>Seleccione el área y el año fiscal correspondiente</p>
                 <button id="btnDescargar">Descargar reporte</button>
-
-                <!-- SELECTOR AÑO -->
-                <select id="anioSelect"></select>
 
                 <!-- SELECTOR AREA -->
                 <select id="areaSelect"></select>
 
+                <!-- SELECTOR AÑO -->
+                <select id="anioSelect"></select>
 
                 <div class="table-container">
 
@@ -188,23 +189,26 @@
 
                         <thead>
                             <tr>
-                                <th class="center">No.</th>
-                                <th class="center">Nombre del Programa</th>
-                                <th class="center">Monto programado</th>
-                                <th class="center">Monto ejercido</th>
+                                <th rowspan="2" class="center">No.</th>
+                                <th rowspan="2" class="center">Nombre del Programa</th>
+                                <th colspan="3" class="center">Monto</th>
+                                <th colspan="2" class="center">Beneficiarios</th>
+                                <th rowspan="2" class="center">Estatus</th>
+                            </tr>
+                            <tr>
+                                <th class="center">Programado</th>
+                                <th class="center">Ejercido</th>
                                 <th class="center">Avance</th>
-                                <th class="center">Beneficiarios programados</th>
-                                <th class="center">Beneficiarios totales</th>
-                                <th class="center">Estatus</th>
+                                <th class="center">Programados</th>
+                                <th class="center">Totales</th>
                             </tr>
                         </thead>
-
                         <tbody></tbody>
 
                     </table>
 
                 </div>
-                <div id="pieReporte" style="display:none; text-align:center; margin-top:20px; font-size:13.5px;">
+                <div id="pieReporte" style="display:none; text-align:center; margin-top:20px; font-size:15px;">
 
                     <b>Sistema de Información Económica</b><br>
 
@@ -383,39 +387,76 @@
 
 
             /* CARGAR AÑOS */
+            anioSelect.innerHTML = "<option value='' selected disabled>Seleccione un año</option>";
             Object.keys(datos).forEach(anio => {
-
                 let option = document.createElement("option");
-
                 option.value = anio;
                 option.textContent = anio;
-
                 anioSelect.appendChild(option);
-
             });
 
+            /* CARGAR ÁREAS (una sola vez, con todas las áreas posibles) */
+            areaSelect.innerHTML = "<option value='' selected disabled>Seleccione un área</option>";
+            areaSelect.innerHTML += "<option value='Secretaria'>Secretaría de Desarrollo Económico</option>";
+            let todasAreas = new Set();
+            Object.values(datos).forEach(anioData => {
+                Object.keys(anioData).forEach(area => todasAreas.add(area));
+            });
 
-            /* CARGAR AREAS */
-            function cargarAreas() {
+            todasAreas.forEach(area => {
+                let option = document.createElement("option");
+                option.value = area;
+                option.textContent = area;
+                areaSelect.appendChild(option);
+            });
 
+            /* EVENTOS */
+            anioSelect.addEventListener("change", cargarProgramas);
+            areaSelect.addEventListener("change", cargarProgramas);
+
+            /* CARGAR PROGRAMAS */
+            function cargarProgramas() {
                 let anio = anioSelect.value;
+                let area = areaSelect.value;
+                const tbody = document.querySelector("#tablaProgramas tbody");
+                tbody.innerHTML = "";
 
-                areaSelect.innerHTML = "";
+                let programas = datos[anio][area] || [];
 
-                Object.keys(datos[anio]).forEach(area => {
+                if (programas.length === 0) {
+                    tbody.innerHTML = "<tr><td colspan='9'>No hay registros</td></tr>";
+                    return;
+                }
 
-                    let option = document.createElement("option");
+                programas.forEach((programa, index) => {
+                    let avanceHTML = "—";
+                    if (programa.avance != null) {
+                        avanceHTML = `
+        <div class="avance-container">
+          <span class="avance-texto">${programa.avance}%</span>
+          <div class="progress-bar">
+            <div class="progress" style="width:${programa.avance}%"></div>
+          </div>
+        </div>`;
+                    }
 
-                    option.value = area;
-                    option.textContent = area;
+                    let fila = `<tr>
+      <td>${index + 1}</td>
+      <td>${programa.nombre ?? "—"}</td>
+      <td class="center">${programa.montoprogramado ?? "—"}</td>
+      <td class="center">${programa.montoejercido ?? "—"}</td>
+      <td>${avanceHTML}</td>
+      <td class="center">${programa.beneficiariosprogramados ?? "—"}</td>
+      <td class="center">${programa.beneficiariosejercidos ?? "—"}</td>
+      <td>${programa.estatus ?? "—"}</td>
+      </tr>`;
 
-                    areaSelect.appendChild(option);
-
+                    tbody.innerHTML += fila;
                 });
-
-                cargarProgramas();
-
             }
+
+            /* Inicializar con valores por defecto */
+            cargarProgramas();
 
             /*logica boton reporte*/
             document.getElementById("btnDescargar").addEventListener("click", function () {
@@ -429,7 +470,12 @@
                 let area = document.getElementById("areaSelect").value;
 
                 let hoy = new Date();
-                let fecha = hoy.toLocaleDateString("es-MX");
+                let fecha = hoy.toLocaleDateString("es-MX", {
+                    weekday: "long",
+                    day: "numeric",
+                    month: "long",
+                    year: "numeric"
+                });
 
                 /* llenar encabezado */
                 document.getElementById("datosReporte").innerHTML =
@@ -445,87 +491,102 @@
                     scale: 3,
                     useCORS: true
                 }).then(canvas => {
-
                     const { jsPDF } = window.jspdf;
-
                     let pdf = new jsPDF("landscape", "mm", "letter");
 
                     let imgData = canvas.toDataURL("image/png");
 
-                    /* tamaño hoja carta horizontal */
-                    let pageWidth = 279;
+                    // ancho y alto de la hoja carta en horizontal
+                    let pageWidth = pdf.internal.pageSize.getWidth();
+                    let pageHeight = pdf.internal.pageSize.getHeight();
 
-                    /* zoom 115% */
-                    let zoom = 1.15;
-                    let imgWidth = pageWidth * zoom;
-
-                    /* altura proporcional */
+                    // escalar imagen para que ocupe todo el ancho de la hoja
+                    let imgWidth = pageWidth * 1.10; // zoom 110%
                     let imgHeight = canvas.height * imgWidth / canvas.width;
 
-                    /* centrar horizontalmente */
+                    // centrar horizontalmente
                     let x = (pageWidth - imgWidth) / 2;
-
-                    /* margen superior */
-                    let y = 10;
+                    let y = 0; // margen superior fijo
 
                     pdf.addImage(imgData, "PNG", x, y, imgWidth, imgHeight);
 
-                    let areaArchivo = area.replace(/\s/g, "_");
 
+                    let areaArchivo = area.replace(/\s/g, "_");
                     pdf.save(`Consulta_${anio}_${areaArchivo}.pdf`);
 
-                    /* restaurar visor */
-
+                    // restaurar visor
                     boton.style.display = "block";
                     encabezado.style.display = "none";
                     pie.style.display = "none";
-
                 });
-
             });
 
             /* CARGAR PROGRAMAS */
             function cargarProgramas() {
-
                 let anio = anioSelect.value;
                 let area = areaSelect.value;
 
                 const tbody = document.querySelector("#tablaProgramas tbody");
                 tbody.innerHTML = "";
 
-                let programas = datos[anio][area];
+                if (!anio || !area) {
+                    tbody.innerHTML = "<tr><td colspan='9'>Seleccione un año y un área</td></tr>";
+                    return;
+                }
+
+                let programas = [];
+
+                if (area === "Secretaria") {
+                    // juntar todos los programas de todas las áreas del año
+                    if (datos[anio]) {
+                        Object.values(datos[anio]).forEach(lista => {
+                            programas = programas.concat(lista);
+                        });
+                    }
+                } else {
+                    programas = datos[anio][area] || [];
+                }
 
                 if (programas.length === 0) {
                     tbody.innerHTML = "<tr><td colspan='9'>No hay registros</td></tr>";
                     return;
                 }
 
-                /* detectar columnas con datos */
-
-                let usarMontoProgramado = false;
-                let usarMontoEjercido = false;
-                let usarAvance = false;
-                let usarBenefProgramados = false;
-                let usarBenefTotales = false;
-
-                programas.forEach(p => {
-
-                    if (p.montoprogramado && p.montoprogramado !== "-") usarMontoProgramado = true;
-                    if (p.montoejercido && p.montoejercido !== "-") usarMontoEjercido = true;
-                    if (p.avance != null) usarAvance = true;
-                    if (p.beneficiariosprogramados != null) usarBenefProgramados = true;
-                    if (p.beneficiariosejercidos != null) usarBenefTotales = true;
-
-                });
-
-                /* construir tabla */
                 programas.forEach((programa, index) => {
-
                     let avanceHTML = "—";
-
                     if (programa.avance != null) {
-
                         avanceHTML = `
+                <div class="avance-container">
+                  <span class="avance-texto">${programa.avance}%</span>
+                  <div class="progress-bar">
+                    <div class="progress" style="width:${programa.avance}%"></div>
+                  </div>
+                </div>`;
+                    }
+
+                    let fila = `<tr>
+          <td>${index + 1}</td>
+          <td>${programa.nombre ?? "—"}</td>
+          <td class="center">${programa.montoprogramado ?? "—"}</td>
+          <td class="center">${programa.montoejercido ?? "—"}</td>
+          <td>${avanceHTML}</td>
+          <td class="center">${programa.beneficiariosprogramados ?? "—"}</td>
+          <td class="center">${programa.beneficiariosejercidos ?? "—"}</td>
+          <td>${programa.estatus ?? "—"}</td>
+        </tr>`;
+
+                    tbody.innerHTML += fila;
+                });
+            }
+
+            /* construir tabla */
+            programas.forEach((programa, index) => {
+
+                let avanceHTML = "—";
+
+                if (programa.avance != null) {
+
+                    avanceHTML = `
 <div class="avance-container">
 
 <span class="avance-texto">${programa.avance}%</span>
@@ -535,41 +596,39 @@
 </div>
 
 </div>`;
-                    }
+                }
 
-                    let fila = `<tr>
+                let fila = `<tr>
 
 <td>${index + 1}</td>
 
 <td>${programa.nombre ?? "—"}</td>`;
 
-                    if (usarMontoProgramado) {
-                        fila += `<td class="center">${programa.montoprogramado ?? "—"}</td>`;
-                    }
+                if (usarMontoProgramado) {
+                    fila += `<td class="center">${programa.montoprogramado ?? "—"}</td>`;
+                }
 
-                    if (usarMontoEjercido) {
-                        fila += `<td class="center">${programa.montoejercido ?? "—"}</td>`;
-                    }
+                if (usarMontoEjercido) {
+                    fila += `<td class="center">${programa.montoejercido ?? "—"}</td>`;
+                }
 
-                    if (usarAvance) {
-                        fila += `<td>${avanceHTML}</td>`;
-                    }
+                if (usarAvance) {
+                    fila += `<td>${avanceHTML}</td>`;
+                }
 
-                    if (usarBenefProgramados) {
-                        fila += `<td class="center">${programa.beneficiariosprogramados ?? "—"}</td>`;
-                    }
+                if (usarBenefProgramados) {
+                    fila += `<td class="center">${programa.beneficiariosprogramados ?? "—"}</td>`;
+                }
 
-                    if (usarBenefTotales) {
-                        fila += `<td class="center">${programa.beneficiariosejercidos ?? "—"}</td>`;
-                    }
+                if (usarBenefTotales) {
+                    fila += `<td class="center">${programa.beneficiariosejercidos ?? "—"}</td>`;
+                }
 
-                    fila += `<td>${programa.estatus ?? "—"}</td></tr>`;
+                fila += `<td>${programa.estatus ?? "—"}</td></tr>`;
 
-                    tbody.innerHTML += fila;
+                tbody.innerHTML += fila;
 
-                });
-
-            }
+            });
 
             anioSelect.addEventListener("change", cargarAreas);
 
