@@ -202,6 +202,38 @@
 
     </script>
 
+<script>
+  window.addEventListener("DOMContentLoaded", () => {
+    const mensaje = localStorage.getItem("bienvenida");
+    if(mensaje){
+      // Crear cuadro de bienvenida
+      const banner = document.createElement("div");
+      banner.textContent = mensaje;
+      banner.style.position = "fixed";
+      banner.style.top = "20px";
+      banner.style.left = "50%";
+      banner.style.transform = "translateX(-50%)";
+      banner.style.background = "#A41C53";
+      banner.style.color = "white";
+      banner.style.padding = "12px 20px";
+      banner.style.borderRadius = "6px";
+      banner.style.fontWeight = "bold";
+      banner.style.zIndex = "9999";
+      banner.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+      document.body.appendChild(banner);
+
+      // Desaparecer después de 1 segundo
+      setTimeout(() => {
+        banner.style.transition = "opacity 0.5s ease";
+        banner.style.opacity = "0";
+        setTimeout(() => banner.remove(), 500);
+      }, 1000);
+
+      localStorage.removeItem("bienvenida");
+    }
+  });
+</script>
+
 </body>
 
 </html>
