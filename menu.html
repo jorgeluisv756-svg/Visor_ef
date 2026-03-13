@@ -7,12 +7,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <style>
+        /* ===== Estilos generales ===== */
         body {
             margin: 0;
             font-family: Montserrat, Helvetica, sans-serif;
             background: #f2f2f2;
         }
 
+        /* ===== Sección de inicio (menú principal) ===== */
         #inicio {
             display: flex;
             flex-direction: column;
@@ -48,6 +50,7 @@
             justify-content: center;
         }
 
+        /* ===== Tarjetas de acceso a visores ===== */
         .tarjeta {
             background: white;
             padding: 40px;
@@ -67,25 +70,16 @@
             margin-top: 0;
         }
 
-        .estatal {
-            border-top: 6px solid #8b0000;
-        }
+        /* Colores de cada visor */
+        .estatal { border-top: 6px solid #8b0000; }
+        .regional { border-top: 6px solid #BC955B; }
+        .programas { border-top: 6px solid #A72F51; }
 
-        .regional {
-            border-top: 6px solid #BC955B;
-        }
-
-        .programas {
-            border-top: 6px solid #A72F51;
-        }
-
+        /* ===== Contenedor del visor (iframe) ===== */
         #visor {
-            display: none;
+            display: none; /* oculto por defecto */
             position: fixed;
-            top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
+            top: 0; left: 0; right: 0; bottom: 0;
             width: 100%;
             height: 100%;
         }
@@ -96,6 +90,7 @@
             border: none;
         }
 
+        /* ===== Botón de regresar al menú ===== */
         #btnRegresar {
             position: fixed;
             top: 95px;
@@ -107,7 +102,7 @@
             border-radius: 6px;
             cursor: pointer;
             z-index: 1000;
-            display: none;
+            display: none; /* oculto por defecto */
             font-size: 14px;
         }
 
@@ -115,71 +110,95 @@
             background: #a30000;
         }
 
+        /* ===== Footer ===== */
         .footer {
             position: absolute;
             bottom: 20px;
             font-size: 13px;
             color: #777;
         }
+
+        /* ===== Botón de cerrar sesión ===== */
+        #logoutBtn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #8b2d2d;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 10px 18px;
+            font-size: 14px;
+            cursor: pointer;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.3);
+        }
+
+        #logoutBtn:hover {
+            background: #6e2222;
+        }
     </style>
 </head>
 
 <body>
 
+    <!-- Botón para regresar al menú -->
     <button id="btnRegresar" onclick="volverInicio()">← Volver al menú</button>
 
+    <!-- ===== Sección de inicio (menú principal) ===== -->
     <div id="inicio">
 
+        <!-- Logo institucional -->
         <img class="logo"
             src="https://raw.githubusercontent.com/jorgeluisv756-svg/imagenes_kmz/7c7924c0d0c89c5adaf112d1b8e3fb9db3258400/Logotipo%20armas30%20(1).png">
 
+        <!-- Título principal -->
         <div class="titulo">
             Sistema de Información Económica
         </div>
 
+        <!-- Subtítulo -->
         <div class="subtitulo">
             Seleccione la base de datos georreferenciada que desea consultar
         </div>
 
+        <!-- Botones de acceso a visores -->
         <div class="contenedor-botones">
 
             <div class="tarjeta estatal" onclick="abrirVisor('visor_estatal.html')">
                 <h3>Visor Estatal</h3>
-                <p>
-                    Visualización general de programas e inversión a nivel estatal.
-                </p>
+                <p>Visualización general de programas e inversión a nivel estatal.</p>
             </div>
 
             <div class="tarjeta regional" onclick="abrirVisor('visor_regional.html')">
                 <h3>Visor Regional</h3>
-                <p>
-                    Consulta territorial por regiones y municipios.
-                </p>
+                <p>Consulta territorial por regiones y municipios.</p>
             </div>
 
             <div class="tarjeta programas" onclick="abrirVisor('visor_programas.html')">
                 <h3>Programas y Acciones</h3>
-                <p>
-                    Consulta de datos.
-                </p>
+                <p>Consulta de datos.</p>
             </div>
 
         </div>
 
+        <!-- Footer -->
         <div class="footer">
             Secretaría de Desarrollo Económico · Hidalgo
         </div>
 
     </div>
 
+    <!-- ===== Contenedor del visor ===== -->
     <div id="visor">
         <iframe id="frameVisor"></iframe>
     </div>
 
+    <!-- Botón de cerrar sesión -->
+    <button id="logoutBtn">Cerrar sesión</button>
+
     <script>
-
+        /* ===== Función para abrir visores ===== */
         function abrirVisor(url) {
-
             document.getElementById("inicio").style.display = "none";
             document.getElementById("visor").style.display = "block";
 
@@ -187,10 +206,12 @@
 
             document.getElementById("btnRegresar").style.display = "block";
 
+            // Ocultar botón de cerrar sesión al entrar a un visor
+            document.getElementById("logoutBtn").style.display = "none";
         }
 
+        /* ===== Función para volver al menú ===== */
         function volverInicio() {
-
             document.getElementById("visor").style.display = "none";
             document.getElementById("inicio").style.display = "flex";
 
@@ -198,42 +219,51 @@
 
             document.getElementById("btnRegresar").style.display = "none";
 
+            // Mostrar botón de cerrar sesión al volver al menú
+            document.getElementById("logoutBtn").style.display = "block";
         }
 
+        /* ===== Acción de cerrar sesión ===== */
+        document.getElementById("logoutBtn").addEventListener("click", () => {
+            localStorage.removeItem("bienvenida");
+            window.location.href = "index.html";
+        });
     </script>
 
-<script>
-  window.addEventListener("DOMContentLoaded", () => {
-    const mensaje = localStorage.getItem("bienvenida");
-    if(mensaje){
-      // Crear cuadro de bienvenida
-      const banner = document.createElement("div");
-      banner.textContent = mensaje;
-      banner.style.position = "fixed";
-      banner.style.top = "20px";
-      banner.style.left = "50%";
-      banner.style.transform = "translateX(-50%)";
-      banner.style.background = "#A41C53";
-      banner.style.color = "white";
-      banner.style.padding = "12px 20px";
-      banner.style.borderRadius = "6px";
-      banner.style.fontWeight = "bold";
-      banner.style.zIndex = "9999";
-      banner.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
-      document.body.appendChild(banner);
+    <script>
+        /* ===== Mensaje de bienvenida ===== */
+        window.addEventListener("DOMContentLoaded", () => {
+            const mensaje = localStorage.getItem("bienvenida");
+            if (mensaje) {
+                // Crear cuadro de bienvenida
+                const banner = document.createElement("div");
+                banner.textContent = mensaje;
+                banner.style.position = "fixed";
+                banner.style.top = "20px";
+                banner.style.left = "50%";
+                banner.style.transform = "translateX(-50%)";
+                banner.style.background = "#A41C53";
+                banner.style.color = "white";
+                banner.style.padding = "12px 20px";
+                banner.style.borderRadius = "6px";
+                banner.style.fontWeight = "bold";
+                banner.style.zIndex = "9999";
+                banner.style.boxShadow = "0 2px 6px rgba(0,0,0,0.3)";
+                document.body.appendChild(banner);
 
-      // Desaparecer después de 1 segundo
-      setTimeout(() => {
-        banner.style.transition = "opacity 0.5s ease";
-        banner.style.opacity = "0";
-        setTimeout(() => banner.remove(), 500);
-      }, 1000);
+                // Desaparecer después de 1 segundo
+                setTimeout(() => {
+                    banner.style.transition = "opacity 0.5s ease";
+                    banner.style.opacity = "0";
+                    setTimeout(() => banner.remove(), 500);
+                }, 1000);
 
-      localStorage.removeItem("bienvenida");
-    }
-  });
-</script>
+                localStorage.removeItem("bienvenida");
+            }
+        });
+    </script>
 
 </body>
 
 </html>
+
